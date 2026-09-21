@@ -4,13 +4,13 @@ import { View, Text, StyleSheet, StatusBar, FlatList, } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { GameCard } from '../components/GameCard'
 import { NavMenu } from '../components/NavMenu';
-import {RawgGame} from '../interfaces/game';
+import { RawgGame } from '../interfaces/game';
 import { getFavorites } from '../services/favorites';
 
 export default function FavoritesScreen() {
 
     //juegos favoritos
-    const [games, setGames] = useState <RawgGame[]>([]);
+    const [games, setGames] = useState<RawgGame[]>([]);
     const navigation = useNavigation<any>();
 
     useFocusEffect(useCallback(() => {
@@ -41,7 +41,7 @@ export default function FavoritesScreen() {
                         game={item}
                         onPress={() => navigation.navigate('GameDetail', { game: item })}
                         iconName="heart"
-                        
+
                     />
                 )}
             />
