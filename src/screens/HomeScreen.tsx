@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import { useNavigation } from '@react-navigation/native';
 import {View, Text, StyleSheet, StatusBar, FlatList, ActivityIndicator,} from 'react-native';
 import { Header } from '../components/HeaderMenu';
 import { SafeAreaView } from 'react-native-safe-area-context';
@@ -9,6 +10,7 @@ import { getGames, getGenres, getGamesByGenres } from '../services/rawgApi';
 import { Genre, RawgGame } from '../interfaces/game';
 
 export default function HomeScreen() {
+    const navigation = useNavigation<any>();
         
     // interface Generos {
     //     id: number
@@ -114,7 +116,7 @@ export default function HomeScreen() {
 
                     <GameCard
                         game={item}
-                        onPress={(id) => console.log('Juego seleccionado:', id)}
+                        onPress={() => navigation.navigate('GameDetail', { game: item })}
                         iconName="arrow-up-right"
                     />
                 )}

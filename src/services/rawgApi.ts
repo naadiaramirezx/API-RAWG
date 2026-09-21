@@ -1,6 +1,6 @@
 const API_KEY = "2c257019a68842a2a96ee8d622b2ac8b"
 const BASE_URL = 'https://api.rawg.io/api'
-import { RawgGame } from '../interfaces/game';
+import { GameDetails, RawgGame } from '../interfaces/game';
 
 
 
@@ -53,6 +53,15 @@ export const getGamesByGenres = async (genre: string): Promise<RawgGame[]> => {
 }
 
 //DETALLES DEL JUEGO
+export const getGameDetails = async (id: number): Promise<GameDetails> => {
+    const response = await fetch(`${BASE_URL}/games/${id}?key=${API_KEY}`);
+
+    if (!response.ok) {
+        throw new Error('Error al obtener los detalles del juego');
+    }
+
+    return response.json();
+};
 
 
 //JUEGOS POPULARES

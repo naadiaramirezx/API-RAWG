@@ -17,7 +17,10 @@ export interface GameDetails {
   id: number;
   name: string;
   slug: string;
-  background_image: string;
+  background_image: string | null;
   rating: number;
   released: string;
+  genres: Array<{ id: number; name: string }>;
+  developers: Array<{ id: number; name: string }>;
+  platforms: Array<{ platform: { id: number; name: string } }>;
 }

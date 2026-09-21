@@ -1,17 +1,23 @@
-import React, { useState } from 'react';
+import React, { useCallback, useState } from 'react';
+import { useFocusEffect, useNavigation } from '@react-navigation/native';
 import { View, Text, StyleSheet, StatusBar, FlatList, } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
-import { GameCard } from '../../components/GameCard';
-import { NavMenu } from '../../components/NavMenu';
+import { GameCard } from '../components/GameCard'
+import { NavMenu } from '../components/NavMenu';
+import {RawgGame} from '../interfaces/game';
+import { getFavorites } from '../services/favorites';
 
 export default function FavoritesScreen() {
 
-    const [activeTab, setActiveTab] = useState<'home' | 'favorites'>('favorites');
+    //juegos favoritos
+    const [games, setGames] = useState <RawgGame[]>([]);
+    const navigation = useNavigation<any>();
 
-    const FAVORITES_GAMES = [
-        { id: '1', title: 'GTA V', image: 'https://images.igdb.com/igdb/image/upload/t_cover_big/co1r7f.png' },
-        { id: '2', title: 'STAR LOX', image: 'https://images.unsplash.com/photo-1579373903781-fd5c0c30c4cd?w=600&auto=format&fit=crop&q=80' },
-    ];
+    useFocusEffect(useCallback(() => {
+        setGames(getFavorites());
+    }, []));
+
+    const [activeTab, setActiveTab] = useState<'home' | 'favorites'>('favorites');
 
     return (
         <SafeAreaView style={styles.safeArea} edges={['top']}>
@@ -23,19 +29,17 @@ export default function FavoritesScreen() {
 
             {/* seccion de juegos favoritos */}
             <FlatList
-                data={FAVORITES_GAMES}
+                data={games}
                 numColumns={2}
-                keyExtractor={(item) => item.id}
+                keyExtractor={(item) => item.id.toString()}
                 columnWrapperStyle={styles.row}
                 contentContainerStyle={styles.gamesList}
                 showsVerticalScrollIndicator={false}
                 renderItem={({ item }) => (
 
                     <GameCard
-                        id={item.id}
-                        title={item.title}
-                        image={item.image}
-                        onPress={console.log}
+                        game={item}
+                        onPress={() => navigation.navigate('GameDetail', { game: item })}
                         iconName="heart"
                         
                     />
