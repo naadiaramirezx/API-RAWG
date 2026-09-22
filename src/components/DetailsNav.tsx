@@ -12,10 +12,9 @@ interface DetailsNavProps {
 export const DetailsNav: React.FC<DetailsNavProps> = ({ isFavorite, onBack, onToggleFavorite }) => {
     return (
         <View style={styles.bottomContainer}>
-            <LinearGradient colors={['#76488A', '#526BC1']} start={{ x: 0, y: 0 }} end={{ x: 1, y: 0 }} style={styles.bottomNav}>
-                <TouchableOpacity
+            <View style={styles.bottomNav}>
+                 <TouchableOpacity
                     onPress={onBack}
-                    accessibilityLabel="Regresar al inicio"
                     style={styles.navTab}
                 >
                     <Ionicons name="chevron-back" size={32} color="#FFFFFF" />
@@ -23,12 +22,12 @@ export const DetailsNav: React.FC<DetailsNavProps> = ({ isFavorite, onBack, onTo
 
                 <TouchableOpacity
                     onPress={onToggleFavorite}
-                    accessibilityLabel={isFavorite ? 'Quitar de favoritos' : 'Agregar a favoritos'}
                     style={styles.navTab}
                 >
                     <Ionicons name={isFavorite ? 'heart' : 'heart-outline'} size={30} color="#ef4c83" />
                 </TouchableOpacity>
-            </LinearGradient>
+
+            </View>
         </View>
 
     )
@@ -61,7 +60,7 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         borderRadius: 23,
 
-    },
+    }, 
     navTabActive: {
         backgroundColor: '#334155',
     }

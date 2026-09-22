@@ -1,25 +1,25 @@
 import React, { useEffect, useState } from 'react';
 import { useNavigation } from '@react-navigation/native';
-import {View, Text, StyleSheet, StatusBar, FlatList, ActivityIndicator,} from 'react-native';
+import { View, Text, StyleSheet, StatusBar, FlatList, ActivityIndicator, } from 'react-native';
 import { Header } from '../components/HeaderMenu';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { CategoryCard } from '../components/CategoriasCard';
 import { GameCard } from '../components/GameCard';
 import { NavMenu } from '../components/NavMenu';
 import { getGames, getGenres, getGamesByGenres } from '../services/rawgApi';
-import { Genre, RawgGame } from '../interfaces/game';
+import { Genre, RawgGame } from '../services/game';
 
 export default function HomeScreen() {
     const navigation = useNavigation<any>();
-        
+
     // interface Generos {
     //     id: number
     //     name: string
     //     slug: string
     // }
-    
+
     //juegos
-    const [games, setGames] = useState <RawgGame[]>([]);
+    const [games, setGames] = useState<RawgGame[]>([]);
 
     //carga y errores
     const [loading, setLoading] = useState(true);
@@ -32,11 +32,11 @@ export default function HomeScreen() {
     const [categories, setCategories] = useState<Genre[]>([]);
     const [selectedCategory, setSelectedCategory] = useState('');
 
-   
+
 
     //navegacion
     const [activeTab, setActiveTab] =
-     useState<'home' | 'favorites'>('home');
+        useState<'home' | 'favorites'>('home');
 
     //Obtener todos los juegos o los juegos de la categoria seleccionada.
     useEffect(() => {
@@ -71,22 +71,22 @@ export default function HomeScreen() {
                 setCategories(rawgCategories)
             } catch {
                 setError('No se pudieron cargar las categorias');
-            } 
+            }
         }
 
         loadCategories();
     }, []);
-    
+
     return (
         <SafeAreaView style={styles.container} edges={['top']}>
-            <StatusBar barStyle="light-content" backgroundColor="#0B132B" /> 
+            <StatusBar barStyle="light-content" backgroundColor="#0B132B" />
 
             {/* parte del header */}
-           <View style={styles.header}>
-               <Text style={styles.headerTitle}>Explora tus juegos favoritos</Text>
-               <Header value={search} onChangeText={setSearch} />
+            <View style={styles.header}>
+                <Text style={styles.headerTitle}>Explora tus juegos favoritos</Text>
+                <Header value={search} onChangeText={setSearch} />
 
-               {/* Card de categorias */}
+                {/* Card de categorias */}
                 <CategoryCard
                     category={categories}
                     selectedCategory={selectedCategory}
@@ -94,9 +94,9 @@ export default function HomeScreen() {
                         setSelectedCategory(category.slug);
                     }}
                 />
-           </View>
+            </View>
 
-            
+
 
             {/* Card de juegos */}
             {loading && (
@@ -112,7 +112,7 @@ export default function HomeScreen() {
                 columnWrapperStyle={styles.row}
                 contentContainerStyle={styles.gamesList}
                 showsVerticalScrollIndicator={false}
-                renderItem={({item}) => (
+                renderItem={({ item }) => (
 
                     <GameCard
                         game={item}
@@ -123,47 +123,51 @@ export default function HomeScreen() {
             />
 
             {/* menu de navegacion */}
-            <NavMenu activeTab={activeTab} onTabChange={setActiveTab} />
+            <NavMenu 
+                activeTab={activeTab} 
+                onTabChange={setActiveTab} 
+            />
+
         </SafeAreaView>
-        
+
     )
 }
 
 const styles = StyleSheet.create({
-container: {
-     flex: 1,
-     backgroundColor: '#06112F', // Fondo azul marino oscuro
-},
+    container: {
+        flex: 1,
+        backgroundColor: '#06112F', // Fondo azul marino oscuro
+    },
 
-header:{
-    paddingHorizontal: 20,
-    paddingTop: 40,
-},
-headerTitle:{
-    fontSize: 26,
-    color: '#FFFFFF',
-    fontWeight: '700',
-    fontFamily: 'serif',
-    marginBottom: 16,
-},
+    header: {
+        paddingHorizontal: 20,
+        paddingTop: 40,
+    },
+    headerTitle: {
+        fontSize: 26,
+        color: '#FFFFFF',
+        fontWeight: '700',
+        fontFamily: 'serif',
+        marginBottom: 16,
+    },
 
-gamesList: {
-    paddingHorizontal: 16,
-    paddingBottom: 90,
-},
+    gamesList: {
+        paddingHorizontal: 16,
+        paddingBottom: 90,
+    },
 
-loader: {
-    marginTop: 24,
-},
+    loader: {
+        marginTop: 24,
+    },
 
-error: {
-    color: '#FFFFFF',
-    textAlign: 'center',
-    marginTop: 24,
-},
+    error: {
+        color: '#FFFFFF',
+        textAlign: 'center',
+        marginTop: 24,
+    },
 
-row: {
-    justifyContent: 'space-between',
-    marginBottom: 16,
-},
+    row: {
+        justifyContent: 'space-between',
+        marginBottom: 16,
+    },
 });

@@ -5,7 +5,7 @@ import { View, TouchableOpacity, StyleSheet } from 'react-native';
 
 interface NavMenuProps {
     activeTab: 'home' | 'favorites';
-    onTabChange: (tab: 'home' | 'favorites') => void;    //funcion que se ejecuta cuando se cambia de pestaña
+    onTabChange: (tab: 'home' | 'favorites') => void; 
 
 }
 

@@ -4,20 +4,24 @@ import { View, Text, StyleSheet, StatusBar, FlatList, } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { GameCard } from '../components/GameCard'
 import { NavMenu } from '../components/NavMenu';
-import { RawgGame } from '../interfaces/game';
+import { RawgGame } from '../services/game';
 import { getFavorites } from '../services/favorites';
 
 export default function FavoritesScreen() {
 
     //juegos favoritos
     const [games, setGames] = useState<RawgGame[]>([]);
-    const navigation = useNavigation<any>();
+    
 
     useFocusEffect(useCallback(() => {
         setGames(getFavorites());
     }, []));
 
-    const [activeTab, setActiveTab] = useState<'home' | 'favorites'>('favorites');
+    //navegacion
+    const navigation = useNavigation<any>();
+
+    const [activeTab, setActiveTab] =
+     useState<'home' | 'favorites'>('favorites');
 
     return (
         <SafeAreaView style={styles.safeArea} edges={['top']}>
@@ -46,7 +50,10 @@ export default function FavoritesScreen() {
                 )}
             />
 
-            <NavMenu activeTab={activeTab} onTabChange={setActiveTab} />
+            <NavMenu 
+                activeTab={activeTab} 
+                onTabChange={setActiveTab} 
+            />
         </SafeAreaView>
     )
 }

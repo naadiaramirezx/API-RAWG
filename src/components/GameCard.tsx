@@ -1,5 +1,5 @@
 import React from 'react';
-import {RawgGame} from '../interfaces/game';
+import { RawgGame } from '../services/game';
 import { View, Text, Image, TouchableOpacity, StyleSheet, Dimensions } from 'react-native';
 import { Feather } from '@expo/vector-icons';
 
@@ -14,7 +14,7 @@ const CARD_WIDTH = (width - 48) / 2;
 //   iconName?: React.ComponentProps<typeof Feather>['name'];  //prop del icono para cambiarlo cada que se use la card
 // }
 
-interface GameCardProp{
+interface GameCardProp {
   game: RawgGame;
   onPress: (id: number) => void;
   iconName?: React.ComponentProps<typeof Feather>['name'];  //prop del icono para cambiarlo cada que se use la card
@@ -45,7 +45,7 @@ export const GameCard: React.FC<GameCardProp> = ({
       </View>
 
       <Image
-        source={{ 
+        source={{
           uri: game.background_image ?? undefined,
         }}
         style={styles.cardImage}

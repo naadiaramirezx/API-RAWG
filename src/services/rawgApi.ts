@@ -1,6 +1,6 @@
 const API_KEY = "2c257019a68842a2a96ee8d622b2ac8b"
 const BASE_URL = 'https://api.rawg.io/api'
-import { GameDetails, RawgGame } from '../interfaces/game';
+import { GameDetails, RawgGame } from './game';
 
 
 
